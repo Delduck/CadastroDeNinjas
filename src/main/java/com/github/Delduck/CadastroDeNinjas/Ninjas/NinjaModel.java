@@ -1,6 +1,9 @@
-package com.github.Delduck.CadastroDeNinjas;
+package com.github.Delduck.CadastroDeNinjas.Ninjas;
 
+import com.github.Delduck.CadastroDeNinjas.Missoes.MissoesModel;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_cadastro")
@@ -11,8 +14,14 @@ public class NinjaModel {
     private Long id;
 
     private String nome;
+
     private String email;
+
     private int idade;
+
+    @ManyToOne
+    @JoinColumn(name = "missoes_id")
+    private MissoesModel missoes;
 
     public NinjaModel() {
     }
