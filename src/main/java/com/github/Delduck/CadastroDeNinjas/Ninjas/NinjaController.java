@@ -3,7 +3,7 @@ package com.github.Delduck.CadastroDeNinjas.Ninjas;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("/ninjas")
 public class NinjaController {
 
     @GetMapping("/boasvindas")
@@ -18,7 +18,7 @@ public class NinjaController {
     }
 
     // Mostrar todos os NINJAS
-    @GetMapping("/todos")
+    @GetMapping("/listar")
     public String mostrarTodosNinjas() {
         return "Mostrar Ninja";
     }
