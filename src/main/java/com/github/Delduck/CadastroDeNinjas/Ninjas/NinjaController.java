@@ -1,10 +1,16 @@
 package com.github.Delduck.CadastroDeNinjas.Ninjas;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/ninjas")
+@RequiredArgsConstructor
 public class NinjaController {
+
+    private final NinjaService ninjaService;
 
     @GetMapping("/boasvindas")
     public String boasVindas() {
@@ -19,8 +25,8 @@ public class NinjaController {
 
     // Mostrar todos os NINJAS
     @GetMapping("/listar")
-    public String mostrarTodosNinjas() {
-        return "Mostrar Ninja";
+    public List<NinjaModel> mostrarTodosNinjas() {
+        return ninjaService.listarNinjas();
     }
 
     // Mostrar Ninja por ID
