@@ -22,10 +22,9 @@ public class NinjaController {
         return ninjaService.listarNinjasId(id);
     }
 
-    // Adicionar Ninja
     @PostMapping("/criar")
-    public String criarNinja() {
-        return "Ninja criado";
+    public NinjaModel criarNinja(@RequestBody NinjaModel ninja) {
+        return ninjaService.criarNinja(ninja);
     }
 
     // Alterar dados Ninja
