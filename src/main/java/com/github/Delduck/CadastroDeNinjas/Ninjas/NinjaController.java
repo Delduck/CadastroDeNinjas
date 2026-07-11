@@ -27,15 +27,17 @@ public class NinjaController {
         return ninjaService.criarNinja(ninja);
     }
 
-    // Alterar dados Ninja
-    @PutMapping("/{alterarID}")
-    public String alterarNinjaID(@PathVariable String alterarID) {
-        return "Alterar ninja por id";
+    @DeleteMapping("/deletar/{id}")
+    public void deletarNinjasID(@PathVariable Long id) {
+        ninjaService.deletarNinjasID(id);
     }
 
-    // Deletar Ninja por ID
-    @DeleteMapping("/{deletarID}")
-    public String deletarNinjaID(@PathVariable String deletarID) {
-        return "Ninja deletado por id";
+
+    @PutMapping("/alterar/{id}")
+    public NinjaModel alterarNinjaID(@PathVariable Long id,
+                                 @RequestBody NinjaModel ninjaAtualizado) {
+        return ninjaService.atualizarNinja(id, ninjaAtualizado);
     }
+
+
 }
