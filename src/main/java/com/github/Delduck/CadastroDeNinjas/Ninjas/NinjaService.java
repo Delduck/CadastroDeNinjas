@@ -11,6 +11,7 @@ import java.util.Optional;
 public class NinjaService {
 
     private final NinjaRepository ninjaRepository;
+    private final NinjaMapper ninjaMapper;
 
     public List<NinjaModel> listarNinjas() {
         return ninjaRepository.findAll();
@@ -21,8 +22,11 @@ public class NinjaService {
         return ninjaPorID.orElse(null);
     }
 
-    public NinjaModel criarNinja(NinjaModel ninjaModel) {
-        return ninjaRepository.save(ninjaModel);
+    public NinjaDTO criarNinja(NinjaDTO ninjaDTO) {
+        NinjaModel ninjaModel = ninjaMapper.ninjaModeltoDTO(ninjaDTO);
+        ninjaModel = ninjaRepository.save(ninjaModel);
+
+        return ninjaMapper.ninjaDTOtoModel(ninjaModel);
     }
 
     public void deletarNinjasID(Long id) {
