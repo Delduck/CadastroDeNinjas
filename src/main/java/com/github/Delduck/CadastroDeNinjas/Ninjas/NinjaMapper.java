@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class NinjaMapper {
 
     // mapear NinjaModel -> DTO
-    public NinjaModel ninjaModeltoDTO(NinjaDTO ninjaDTO) {
+    public NinjaModel ninjaDTOtoModel(NinjaDTO ninjaDTO) {
 
         NinjaModel ninjaModel = new NinjaModel();
         ninjaModel.setId(ninjaDTO.getId());
@@ -21,7 +21,7 @@ public class NinjaMapper {
     }
 
     // mapear DTO -> NinjaModel
-    public NinjaDTO ninjaDTOtoModel(NinjaModel ninjaModel) {
+    public NinjaDTO ninjaModeltoDTO(NinjaModel ninjaModel) {
 
         NinjaDTO ninjaDTO = new NinjaDTO();
         ninjaDTO.setId(ninjaModel.getId());
