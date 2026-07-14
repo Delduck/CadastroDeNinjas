@@ -11,28 +11,39 @@ import java.util.Optional;
 public class NinjaService {
 
     private final NinjaRepository ninjaRepository;
+    private final NinjaMapper ninjaMapper;
 
-    public List<NinjaModel> listarNinjas() {
-        return ninjaRepository.findAll();
+    public List<NinjaDTO> listarNinjas() {
+        List<NinjaModel> ninjas = ninjaRepository.findAll();
+
+        return ninjas.stream()
+                .map(ninjaMapper::ninjaModeltoDTO)
+                .toList();
     }
 
-    public NinjaModel listarNinjasId(Long id) {
+    public NinjaDTO listarNinjasId(Long id) {
         Optional<NinjaModel> ninjaPorID = ninjaRepository.findById(id);
-        return ninjaPorID.orElse(null);
+        return ninjaPorID.map(ninjaMapper::ninjaModeltoDTO).orElse(null);
     }
 
-    public NinjaModel criarNinja(NinjaModel ninjaModel) {
-        return ninjaRepository.save(ninjaModel);
+    public NinjaDTO criarNinja(NinjaDTO ninjaDTO) {
+        NinjaModel ninjaModel = ninjaMapper.ninjaDTOtoModel(ninjaDTO);
+        ninjaModel = ninjaRepository.save(ninjaModel);
+
+        return ninjaMapper.ninjaModeltoDTO(ninjaModel);
     }
 
     public void deletarNinjasID(Long id) {
         ninjaRepository.deleteById(id);
     }
 
-    public NinjaModel atualizarNinja(Long id, NinjaModel ninjaAtualizado) {
-        if(ninjaRepository.existsById(id)) {
+    public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaDTO) {
+        Optional<NinjaModel> ninjaExistente = ninjaRepository.findById(id);
+        if (ninjaExistente.isPresent()) {
+            NinjaModel ninjaAtualizado = ninjaMapper.ninjaDTOtoModel(ninjaDTO);
             ninjaAtualizado.setId(id);
-            return ninjaRepository.save(ninjaAtualizado);
+            NinjaModel ninjaSalvo = ninjaRepository.save(ninjaAtualizado);
+            return ninjaMapper.ninjaModeltoDTO(ninjaSalvo);
         }
         return null;
     }
