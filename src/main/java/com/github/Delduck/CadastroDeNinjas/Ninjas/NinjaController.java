@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/ninjas")
 @RequiredArgsConstructor
-public class NinjaController {
+public class NinjaController implements NinjaControllerOpenApi {
 
     private final NinjaService ninjaService;
 
@@ -53,8 +53,7 @@ public class NinjaController {
 
 
     @PutMapping("/alterar/{id}")
-    public ResponseEntity<?> alterarNinjaID(@PathVariable Long id,
-                                 @RequestBody NinjaDTO ninjaAtualizado) {
+    public ResponseEntity<?> alterarNinjaID(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
         NinjaDTO ninjaDTO = ninjaService.atualizarNinja(id, ninjaAtualizado);
         if (ninjaDTO != null) {
             return ResponseEntity.ok(ninjaDTO);
@@ -62,5 +61,4 @@ public class NinjaController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("Ninja com o ID " + id + " não encontrado");
     }
-
 }
